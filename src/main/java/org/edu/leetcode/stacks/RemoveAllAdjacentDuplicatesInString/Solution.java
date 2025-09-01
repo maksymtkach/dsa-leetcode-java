@@ -11,20 +11,14 @@ import java.util.Stack;
 
 public class Solution {
     public String removeDuplicates(String s) {
-        Stack<Character> stack = new Stack<>();
+        StringBuilder stack = new StringBuilder();
         for (char c : s.toCharArray()) {
-            if (!stack.empty() && stack.peek() == c) {
-                stack.pop();
+            if (!stack.isEmpty() && stack.charAt(stack.length() - 1) == c) {
+                stack.deleteCharAt(stack.length() - 1);
             } else {
-                stack.push(c);
+                stack.append(c);
             }
         }
-
-        StringBuilder sb = new StringBuilder();
-        for (char c : stack) {
-            sb.append(c);
-        }
-
-        return sb.toString();
+        return stack.toString();
     }
 }
