@@ -20,15 +20,18 @@ public class Solution {
         Stack<Character> stack = new Stack<>();
         char[] charArray = s.toCharArray();
         for (char c : charArray) {
-            if (!stack.empty() &&
-                    (parentheses.containsKey(stack.peek()) &&
-                            c == parentheses.get(stack.peek()))) {
-                stack.pop();
-            } else if (parentheses.containsKey(c)){
+            if (parentheses.containsKey(c)) {
+                // open
                 stack.push(c);
+            } else {
+                // close
+                if (stack.isEmpty() || // the stack has no prev elements -> false
+                        parentheses.get(stack.pop()) != c) { // check if last is close so close is invalid
+                    return false;
+                }
             }
         }
 
-        return stack.empty();
+        return stack.isEmpty(); // if stack isn't empty it contains invalid set of parentheses
     }
 }
